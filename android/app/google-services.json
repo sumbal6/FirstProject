@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "540414295756",
+    "firebase_url": "https://sumbal.firebaseio.com",
+    "project_id": "sumbal",
+    "storage_bucket": "sumbal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540414295756:android:0aa9067c249eed85",
+        "android_client_info": {
+          "package_name": "com.example.sumbal_churail"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540414295756-5qo2sk5vh7cdqcdqfq6f43s0mpscccr9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sumbal_churail",
+            "certificate_hash": "6ec568d209544b868d4f57494643a3f2c0f33e7d"
+          }
+        },
+        {
+          "client_id": "540414295756-dmt5vmiahs94icn9u1npheniif9fu9jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZt5ri9DDcSvaxZZxNL54AMGESXqG3-lA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540414295756-dmt5vmiahs94icn9u1npheniif9fu9jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
