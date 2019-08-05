@@ -1,22 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sumbal_churail/auth.dart';
+import 'package:sumbal_churail/dashboard..dart';
 import 'sumbal2.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// package ka e miss tha our flutter ka t miss tha
+
 
 
 class Login extends StatefulWidget {
+  Login({this.auth});
+  final BaseAuth auth;
 
 _LoginState createState()=>_LoginState();
 }
 class _LoginState extends State<Login>{
   final useremail=TextEditingController();
    final userpasssword=TextEditingController();
-  final GoogleSignIn _googleSignIn=GoogleSignIn();
+ // final GoogleSignIn _googleSignIn=GoogleSignIn();
 
-final FirebaseAuth _firebaseAuth=FirebaseAuth.instance; 
+//final FirebaseAuth _firebaseAuth=FirebaseAuth.instance; 
 
-
+//Auth _auth;
 
 
   @override
@@ -51,6 +55,7 @@ final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
               padding: 
               EdgeInsets.only(left:50,right: 50),
               child: TextFormField(keyboardType: TextInputType.emailAddress,
+              controller: useremail,
                 decoration: 
                 InputDecoration(hintText: "Email"),
                 validator: validationEmail,
@@ -60,6 +65,7 @@ final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
               padding: 
               EdgeInsets.only(left:40,right:40),
               child:TextFormField(
+                controller: userpasssword,
                 obscureText: true,
                 decoration: 
                 InputDecoration(hintText:"Password")
@@ -89,7 +95,18 @@ final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
               EdgeInsets.only(left:30,right:30,top:10) ,
               child: RaisedButton(
                 child: Text('Login'),
-                onPressed: (){
+                onPressed: () async {
+
+                                        String user =await widget.auth.signInWithEmailandPassword(
+                                         useremail .text, userpasssword.text);
+                      print('$user');
+                      if(user !=null){
+                        Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (cotext)=>Login()),
+                        );
+              
+                        
+                      }
                    Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => Signup()),
@@ -101,7 +118,19 @@ final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
               padding:EdgeInsets.only(left:30,right:30,top:10) ,
               child: RaisedButton(
                 child: Text('sign in through Gmail'),
-                onPressed: () => _signInWithGoogle,
+                onPressed: () async{
+                  String user = await widget.auth
+                  .signInWithEmailandPassword(useremail.text, userpasssword.text);
+  
+                  print('$user');if(user !=null){
+                        Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (cotext)=>DashboardScreen()),
+                        );}
+
+
+                  //import 'package:firebase_auth/firebase_auth.dart';
+
+}
             ))]))));
 
   }
@@ -113,16 +142,7 @@ final FirebaseAuth _firebaseAuth=FirebaseAuth.instance;
     else
     return null;
   }
-  Future<void> _signInWithGoogle(BuildContext context) async{
-    final GoogleSignInAccount googleuser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleauth=
-    await googleuser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleauth.accessToken,
-      idToken: googleauth.idToken,
-    );
-    var userDetail = await _firebaseAuth.signInWithCredential(credential);
 
-    print('user Details');
+
 }
-}
+

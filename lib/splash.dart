@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sumbal_churail/sumbal.dart';
+import 'auth.dart';
 
 class Splashpage extends StatefulWidget {
   @override
@@ -13,9 +14,10 @@ class _SplashpageState extends State<Splashpage> {
   void initState() {
     super.initState();
     Timer(
+    
         Duration(seconds: 2),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (BuildContext contxt) => Login())));
+            MaterialPageRoute(builder: (BuildContext contxt) => Login(auth: Auth()))));
   }
 
   @override

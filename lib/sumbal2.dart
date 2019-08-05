@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sumbal_churail/dashboard..dart';
+import 'auth.dart';
 import 'dashboard..dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+  
+
 
 
 
 class Signup extends StatefulWidget {
+  final BaseAuth auth;
+Signup({this.auth});
   _SignupState createState() => _SignupState();
 }
 
@@ -115,24 +121,37 @@ class _SignupState extends State<Signup> {
                   Padding(
                       padding: EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: RaisedButton(
-                        onPressed: () {
+                        onPressed: ()async {
                           if (userEmail.text.isEmpty ||
                               userPassword.text.isEmpty) {
-                            print("user email and password is emptty");
-                          } else {
-                            FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                                    email: userEmail.text,
-                                    password: userPassword.text);
-                                    
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context)=>DashboardScreen())
+                               
+
+                                String user=await widget.auth.createUserWithEmailAndPassword(userEmail.text, userPassword.text);
+                                 print('$user');
+                         if(user!=null){
+                           Firestore.instance.collection('user').document(user.toString()).setData({
+                             'Name':userName.text,
+                             'Cnic': userCNIC.text,
+                             'Adress': userAccountNo.text,
+                             'Contact No': userContectNo,
+                             'Email':userEmail.text,
+                             'Password':userPassword,
+                           });
+
+
+
+
+                        Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (cotext)=>DashboardScreen()),
+                        );}
+                            
                                   
-                                    );
+                                  
                           }
                         },
                         child: Text('Submit'),
+
+
                       ))
                 ])));
               
